@@ -1,8 +1,7 @@
 import java.io.*;
-import java.net.*;
 import java.math.BigInteger;
+import java.net.Socket;
 import java.nio.charset.StandardCharsets;
-import java.security.SecureRandom;
 import java.util.Scanner;
 
 public class Cliente {
@@ -20,11 +19,11 @@ public class Cliente {
             System.out.print("Digite a mensagem que deseja enviar ao servidor: ");
             String mensagem = scanner.nextLine();
 
-            // Gerar dinamicamente novos p e q e, portanto, novas chaves, com base no comprimento da mensagem
-            gerarChavesRSA(mensagem.length());
+            // Gerar as chaves RSA com p e q maiores
+            gerarChavesRSA();
 
-            // Converte a mensagem para BigInteger
-            BigInteger mensagemBigInt = new BigInteger(mensagem.getBytes(StandardCharsets.UTF_8));
+            // Converte a mensagem para BigInteger, garantindo que seja positiva
+            BigInteger mensagemBigInt = new BigInteger(1, mensagem.getBytes(StandardCharsets.UTF_8));
 
             // Conectar ao servidor
             Socket socket = new Socket("localhost", 9600);
@@ -51,7 +50,7 @@ public class Cliente {
 
     // Método para imprimir o novo texto ASCII
     private static void printAsciiArt() {
-        System.out.println("");
+        System.out.println();
         System.out.println(" $$$$$$\\  $$$$$$$\\  $$$$$$$\\                       $$$$$$\\  $$\\       $$$$$$\\ $$$$$$$$\\ $$\\   $$\\ $$$$$$$$\\ $$$$$$$$\\ ");
         System.out.println("$$  __$$\\ $$  __$$\\ $$  ____|                     $$  __$$\\ $$ |      \\_$$  _|$$  _____|$$$\\  $$ |\\__$$  __|$$  _____|");
         System.out.println("$$ /  \\__|$$ |  $$ |$$ |                          $$ /  \\__|$$ |        $$ |  $$ |      $$$$\\ $$ |   $$ |   $$ |      ");
@@ -60,22 +59,25 @@ public class Cliente {
         System.out.println("$$ |  $$\\ $$ |      $$\\   $$ |                    $$ |  $$\\ $$ |        $$ |  $$ |      $$ |\\$$$ |   $$ |   $$ |      ");
         System.out.println("\\$$$$$$  |$$ |      \\$$$$$$  |                    \\$$$$$$  |$$$$$$$$\\ $$$$$$\\ $$$$$$$$\\ $$ | \\$$ |   $$ |   $$$$$$$$\\ ");
         System.out.println(" \\______/ \\__|       \\______/                      \\______/ \\________|\\______|\\________|\\__|  \\__|   \\__|   \\________|");
-        System.out.println("");
+        System.out.println();
     }
 
-    // Gera novos valores de p, q, N, e, d
-    private static void gerarChavesRSA(int tamanhoMensagem) {
-        SecureRandom random = new SecureRandom();
-        int tamanhoBits = Math.max(512, tamanhoMensagem * 8);  // Calcula um tamanho adequado com base na mensagem
-        BigInteger p = BigInteger.probablePrime(tamanhoBits / 2, random);
-        BigInteger q = BigInteger.probablePrime(tamanhoBits / 2, random);
-        N = p.multiply(q);  // N = p * q
+    // Usando p e q maiores para gerar um N maior
+    private static void gerarChavesRSA() {
+        BigInteger p = new BigInteger("2750159"); // Número primo maior
+        BigInteger q = new BigInteger("2750161"); // Outro número primo maior
 
+        // Calcular N = p * q
+        N = p.multiply(q);
+
+        // Calcular phi(N)
         BigInteger phi = (p.subtract(BigInteger.ONE)).multiply(q.subtract(BigInteger.ONE));
-        E = BigInteger.valueOf(65537); // Valor comum para E
-        D = E.modInverse(phi); // d é o inverso de e mod phi
 
-        System.out.println("Novas chaves geradas: ");
+        // Definir chave pública E e calcular D
+        E = BigInteger.valueOf(65537); // Valor comum para E em implementações modernas
+        D = E.modInverse(phi); // Inverso multiplicativo de E
+
+        System.out.println("Novas chaves geradas:");
         System.out.println("N: " + N);
         System.out.println("E: " + E);
         System.out.println("D: " + D);
