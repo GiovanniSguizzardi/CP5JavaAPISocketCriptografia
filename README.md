@@ -36,4 +36,4 @@ As chaves \( P \), \( Q \), \( N \), \( E \), e \( D \) são geradas dinamicamen
 
 ![CP5JAVACliente](https://github.com/user-attachments/assets/3db376d5-3fc9-4d86-a638-79c8ac49bca5)
 ![CP5JAVAServer](https://github.com/user-attachments/assets/15056391-b921-4d98-999a-2710e5d6b18c)
-![RSACALCULATOR](https://github.com/user-attachments/assets/d84b2bac-f5b0-41d5-b88b-9f1c0d2e1518)
+![RSACALCULATOR](https://github.com/user-attachments/assets/322cf5a1-6294-49a8-9518-748af8e28979)
