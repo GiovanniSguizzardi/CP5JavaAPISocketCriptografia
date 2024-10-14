@@ -34,6 +34,6 @@ As chaves \( P \), \( Q \), \( N \), \( E \), e \( D \) são geradas dinamicamen
 ### Cliente
 - Abaixo está um exemplo de execução do cliente, onde ele gera as chaves, envia uma mensagem criptografada ao servidor, e recebe a mensagem de volta.
 
-![CP5JAVACliente](https://github.com/user-attachments/assets/66616815-522c-4f74-9b50-a4c9a75f0162)
-![CP5JAVAServer](https://github.com/user-attachments/assets/a76ed84f-d468-426d-a041-44438f3f814b)
+![CP5JAVACliente](https://github.com/user-attachments/assets/3db376d5-3fc9-4d86-a638-79c8ac49bca5)
+![CP5JAVAServer](https://github.com/user-attachments/assets/15056391-b921-4d98-999a-2710e5d6b18c)
 ![RSACALCULATOR](https://github.com/user-attachments/assets/d84b2bac-f5b0-41d5-b88b-9f1c0d2e1518)
